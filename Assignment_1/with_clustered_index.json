@@ -1,0 +1,106 @@
+                                                                                           QUERY PLAN                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ [                                                                                                                                                                                              +
+   {                                                                                                                                                                                            +
+     "Plan": {                                                                                                                                                                                  +
+       "Node Type": "Aggregate",                                                                                                                                                                +
+       "Strategy": "Plain",                                                                                                                                                                     +
+       "Partial Mode": "Finalize",                                                                                                                                                              +
+       "Parallel Aware": false,                                                                                                                                                                 +
+       "Async Capable": false,                                                                                                                                                                  +
+       "Startup Cost": 447317.91,                                                                                                                                                               +
+       "Total Cost": 447317.92,                                                                                                                                                                 +
+       "Plan Rows": 1,                                                                                                                                                                          +
+       "Plan Width": 32,                                                                                                                                                                        +
+       "Actual Startup Time": 424.186,                                                                                                                                                          +
+       "Actual Total Time": 429.907,                                                                                                                                                            +
+       "Actual Rows": 1,                                                                                                                                                                        +
+       "Actual Loops": 1,                                                                                                                                                                       +
+       "Plans": [                                                                                                                                                                               +
+         {                                                                                                                                                                                      +
+           "Node Type": "Gather",                                                                                                                                                               +
+           "Parent Relationship": "Outer",                                                                                                                                                      +
+           "Parallel Aware": false,                                                                                                                                                             +
+           "Async Capable": false,                                                                                                                                                              +
+           "Startup Cost": 447317.27,                                                                                                                                                           +
+           "Total Cost": 447317.88,                                                                                                                                                             +
+           "Plan Rows": 6,                                                                                                                                                                      +
+           "Plan Width": 32,                                                                                                                                                                    +
+           "Actual Startup Time": 424.020,                                                                                                                                                      +
+           "Actual Total Time": 429.893,                                                                                                                                                        +
+           "Actual Rows": 7,                                                                                                                                                                    +
+           "Actual Loops": 1,                                                                                                                                                                   +
+           "Workers Planned": 6,                                                                                                                                                                +
+           "Workers Launched": 6,                                                                                                                                                               +
+           "Single Copy": false,                                                                                                                                                                +
+           "Plans": [                                                                                                                                                                           +
+             {                                                                                                                                                                                  +
+               "Node Type": "Aggregate",                                                                                                                                                        +
+               "Strategy": "Plain",                                                                                                                                                             +
+               "Partial Mode": "Partial",                                                                                                                                                       +
+               "Parent Relationship": "Outer",                                                                                                                                                  +
+               "Parallel Aware": false,                                                                                                                                                         +
+               "Async Capable": false,                                                                                                                                                          +
+               "Startup Cost": 446317.27,                                                                                                                                                       +
+               "Total Cost": 446317.28,                                                                                                                                                         +
+               "Plan Rows": 1,                                                                                                                                                                  +
+               "Plan Width": 32,                                                                                                                                                                +
+               "Actual Startup Time": 396.709,                                                                                                                                                  +
+               "Actual Total Time": 396.710,                                                                                                                                                    +
+               "Actual Rows": 1,                                                                                                                                                                +
+               "Actual Loops": 7,                                                                                                                                                               +
+               "Workers": [                                                                                                                                                                     +
+               ],                                                                                                                                                                               +
+               "Plans": [                                                                                                                                                                       +
+                 {                                                                                                                                                                              +
+                   "Node Type": "Index Scan",                                                                                                                                                   +
+                   "Parent Relationship": "Outer",                                                                                                                                              +
+                   "Parallel Aware": true,                                                                                                                                                      +
+                   "Async Capable": false,                                                                                                                                                      +
+                   "Scan Direction": "Forward",                                                                                                                                                 +
+                   "Index Name": "idx_q6_partial",                                                                                                                                              +
+                   "Relation Name": "lineitem",                                                                                                                                                 +
+                   "Alias": "lineitem",                                                                                                                                                         +
+                   "Startup Cost": 0.56,                                                                                                                                                        +
+                   "Total Cost": 445351.58,                                                                                                                                                     +
+                   "Plan Rows": 193137,                                                                                                                                                         +
+                   "Plan Width": 12,                                                                                                                                                            +
+                   "Actual Startup Time": 0.398,                                                                                                                                                +
+                   "Actual Total Time": 361.517,                                                                                                                                                +
+                   "Actual Rows": 162752,                                                                                                                                                       +
+                   "Actual Loops": 7,                                                                                                                                                           +
+                   "Index Cond": "((l_shipdate >= '1994-01-01'::date) AND (l_shipdate < '1995-01-01 00:00:00'::timestamp without time zone) AND (l_discount >= 0.05) AND (l_discount <= 0.07))",+
+                   "Rows Removed by Index Recheck": 0,                                                                                                                                          +
+                   "Workers": [                                                                                                                                                                 +
+                   ]                                                                                                                                                                            +
+                 }                                                                                                                                                                              +
+               ]                                                                                                                                                                                +
+             }                                                                                                                                                                                  +
+           ]                                                                                                                                                                                    +
+         }                                                                                                                                                                                      +
+       ]                                                                                                                                                                                        +
+     },                                                                                                                                                                                         +
+     "Planning Time": 0.328,                                                                                                                                                                    +
+     "Triggers": [                                                                                                                                                                              +
+     ],                                                                                                                                                                                         +
+     "JIT": {                                                                                                                                                                                   +
+       "Functions": 37,                                                                                                                                                                         +
+       "Options": {                                                                                                                                                                             +
+         "Inlining": false,                                                                                                                                                                     +
+         "Optimization": false,                                                                                                                                                                 +
+         "Expressions": true,                                                                                                                                                                   +
+         "Deforming": true                                                                                                                                                                      +
+       },                                                                                                                                                                                       +
+       "Timing": {                                                                                                                                                                              +
+         "Generation": 9.398,                                                                                                                                                                   +
+         "Inlining": 0.000,                                                                                                                                                                     +
+         "Optimization": 2.452,                                                                                                                                                                 +
+         "Emission": 38.492,                                                                                                                                                                    +
+         "Total": 50.342                                                                                                                                                                        +
+       }                                                                                                                                                                                        +
+     },                                                                                                                                                                                         +
+     "Execution Time": 430.473                                                                                                                                                                  +
+   }                                                                                                                                                                                            +
+ ]
+(1 row)
+
