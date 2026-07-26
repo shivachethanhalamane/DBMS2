@@ -1,0 +1,79 @@
+# ==========================================
+# QUERY 1
+# ==========================================
+
+# Query 1, Switch 1
+date_i = "1992-01-10"
+date_j = "1992-01-11"
+hint_Pi = "/*+ Parallel(lineitem 0) */"
+hint_Pj = "/*+ Parallel(lineitem 4) */"
+
+# Query 1, Switch 2
+date_i = "1992-08-21"
+date_j = "1992-08-22"
+hint_Pi = "/*+ BitmapScan(lineitem) */"
+hint_Pj = "/*+ SeqScan(lineitem) */"
+
+
+# ==========================================
+# QUERY 2
+# ==========================================
+
+# Query 2, Switch 1
+date_i = "1993-03-11"
+date_j = "1993-03-12"
+hint_Pi = "/*+ BitmapScan(orders) */"
+hint_Pj = "/*+ SeqScan(orders) */"
+
+# Query 2, Switch 2
+date_i = "1993-04-28"
+date_j = "1993-04-29"
+hint_Pi = "/*+ Set(enable_hashagg off) */"
+hint_Pj = "/*+ Set(enable_sort off) */"
+
+# Query 2, Switch 3
+date_i = "1996-11-22"
+date_j = "1996-11-23"
+hint_Pi = "/*+ NestLoop(orders lineitem) */"
+hint_Pj = "/*+ HashJoin(orders lineitem) */"
+
+
+# ==========================================
+# QUERY 3
+# ==========================================
+
+# Query 3, Switch 1
+date_i = "1992-02-28"
+date_j = "1992-02-29"
+hint_Pi = "/*+ NestLoop(o c) */"
+hint_Pj = "/*+ HashJoin(o c) */"
+
+# Query 3, Switch 2
+date_i = "1993-04-06"
+date_j = "1993-04-07"
+hint_Pi = "/*+ BitmapScan(o) */"
+hint_Pj = "/*+ SeqScan(o) */"
+
+# Query 3, Switch 3
+date_i = "1998-08-28"
+date_j = "1998-08-29"
+# Flattened Leading, removed specific index names
+hint_Pi = "/*+ Leading(o c l) SeqScan(o) SeqScan(c) IndexScan(l) HashJoin(o c) NestLoop(o c l) */"
+# Flattened Leading, removed specific index names
+hint_Pj = "/*+ Leading(l o c) BitmapScan(l) IndexScan(o) SeqScan(c) NestLoop(l o) HashJoin(l o c) */"
+
+# Query 3, Switch 4
+date_i = "1998-09-19"
+date_j = "1998-09-20"
+# Identical to Pj from Switch 3
+hint_Pi = "/*+ Leading(l o c) BitmapScan(l) IndexScan(o) SeqScan(c) NestLoop(l o) HashJoin(l o c) */"
+# Changes the final join to NestLoop, changes 'c' to IndexScan
+hint_Pj = "/*+ Leading(l o c) BitmapScan(l) IndexScan(o) IndexScan(c) NestLoop(l o) NestLoop(l o c) */"
+
+# Query 3, Switch 5
+date_i = "1998-11-30"
+date_j = "1998-12-01"
+# Identical to Pj from Switch 4
+hint_Pi = "/*+ Leading(l o c) BitmapScan(l) IndexScan(o) IndexScan(c) NestLoop(l o) NestLoop(l o c) */"
+# Drops BitmapScan for IndexScan on 'l'
+hint_Pj = "/*+ Leading(l o c) IndexScan(l) IndexScan(o) IndexScan(c) NestLoop(l o) NestLoop(l o c) */"
